@@ -26,7 +26,7 @@ conda env create -f minigptv-environment.yml
 conda activate minigptv
 ```
 
-#### **Model Setup: Vicuna-7B**
+#### **Model Setup**
 
 ##### Step 1: Download Vicuna-7B Weights
 Obtain the model weights for Vicuna-7B from the [Vision-CAIR/vicuna-7b repository](https://huggingface.co/Vision-CAIR/vicuna-7b/tree/main). Ensure `git-lfs` is installed to clone the repository.
@@ -95,11 +95,30 @@ To generate adversarial prompts, place an image named `clean.jpeg` in the `adver
 python3 -W ignore minigpt_visual_attack.py --gpu_id 1 --n_iters 1000 --eps 64
 ```
 
+
 ## Evaluation Datasets
 
-## Model Outputs
+Our method has been evaluated on the following datasets, which encompass diverse scenarios and benchmarks for assessing the safety and robustness of Multimodal Large Language Models (MLLMs):
 
+1. **[FigStep](https://github.com/ThuCCSLab/FigStep)**:  
+   A dataset designed for evaluating the interpretability and reasoning capabilities of models with step-by-step instructions and multi-image reasoning.
 
+2. **[JailBreakV-28K](https://github.com/EddyLuo1232/JailBreakV_28K)**:  
+   A comprehensive benchmark of 28,000 adversarial text-image pairs crafted to evaluate models' susceptibility to jailbreak attacks and harmful content generation.
+
+3. **[MM-SafetyBench](https://github.com/isXinLiu/MM-SafetyBench)**:  
+   A benchmark focusing on assessing the safety alignment of MLLMs against adversarial and harmful inputs, with scenarios targeting ethical and safety considerations.
+
+4. **[Visual Adversarial Examples for Jailbreaking LLMs](https://github.com/Unispac/Visual-Adversarial-Examples-Jailbreak-Large-Language-Models)**:  
+   A dataset featuring adversarial visual prompts designed to test the vulnerability of LLMs in generating harmful or unethical outputs when paired with malicious queries.
+
+## Comparison of Defense Strategies
+
+The image below demonstrates how Immune outperforms other defense strategies in neutralizing adversarial attacks. While existing methods fail to handle harmful prompts effectively, Immune provides safe, ethical, and bias-free responses, ensuring robust safety alignment.
+
+![teaser 1](./static/images/teaser1.jpg)
+![teaser 2](./static/images/teaser2.jpg)
+![teaser 3](./static/images/teaser3.jpg)
 
 
 

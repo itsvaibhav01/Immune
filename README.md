@@ -59,29 +59,22 @@ The `minigpt_inference.py` script allows for flexible inference using different 
 - `max_new_token`: Maximum number of output tokens when using the `enhanced` generator.
 
 ##### **Examples of Inference Commands**
-1. **Inference with `jsonl` file and single image**:
-   ```bash
-   python3 -W ignore minigpt_inference.py \
-   --image_file ./adversarial_images/bad_prompt_temp_1790.bmp \
-   --output_file ./output/result_minigpt4-llama2-p64_bp_1790.jsonl \
-   --generator enhanced
-   ```
 
-2. **Inference for JailbreakV-28K with a CSV file**:
+1. **Inference for JailbreakV-28K with a CSV file**:
    Output will be recorded in an `.xlsx` file in the same directory.
    ```bash
    python3 -W ignore minigpt_inference.py \
-   --input_csv ./datasets/JailbreakV-28K/test_jailbreak.csv \
-   --output_file ./output/result_minigpt4-llama2-test-jailbreak.jsonl \
+   --input_csv ./datasets/JailbreakV-28K/JailBreakV_28K.csv \
+   --output_file ./output/result_minigpt4-vicuna-immune-jailbreak.jsonl \
    --generator enhanced \
    --max_new_token 300
    ```
 
-3. **Inference using the default generator**:
+2. **Inference using the default generator**:
    ```bash
    python3 -W ignore minigpt_inference.py \
-   --input_csv ./datasets/JailbreakV-28K/test_jailbreak.csv \
-   --output_file ./output/result_minigpt4-llama2-test-jailbreak.jsonl \
+   --input_csv ./datasets/JailbreakV-28K/JailBreakV_28K.csv \
+   --output_file ./output/result_minigpt4-vicuna-default-jailbreak.jsonl \
    --generator default
    ```
 

@@ -19,11 +19,9 @@ class StoppingCriteriaSub(StoppingCriteria):
 
 
 class Generator:
-    @timeit
     def __init__(self, model, max_new_tokens=300, weight=5.0, num_beams=1, min_length=1, top_p=0.9,
                repetition_penalty=1.0, length_penalty=1, temperature=1.0, device='cuda:0'):
-        print("******************")
-        print("Running enhanced decoding!!!")
+        print("Running enhanced decoding!!!".center(100, "*"))
         self.model = model
         self.device = device
 
@@ -44,11 +42,9 @@ class Generator:
             model=self.model.llama_model, 
             tokenizer=self.model.llama_tokenizer, 
             llm_dev="cuda:0", 
-            rm_dev="cuda:1",
-            # rm_dev=torch.device("mps"), 
+            rm_dev="cuda:0",
             device="cuda:0",
             reward_model= "LxzGordon/URM-LLaMa-3.1-8B", 
-            weight = weight,
         )
 
     @timeit

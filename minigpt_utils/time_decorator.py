@@ -11,12 +11,12 @@ def timeit(method):
         start_time = time.time()
 
         process = psutil.Process()
-        mem_before = process.memory_info().rss / (1024 ** 2)  # Convert to MB
+        mem_before = process.memory_info().rss / (1024 ** 2) 
 
         result = method(*args, **kwargs)
 
-        mem_after = process.memory_info().rss / (1024 ** 2)  # Convert to MB
-        peak_memory = process.memory_info().vms / (1024 ** 2)  # Convert to MB for peak memory
+        mem_after = process.memory_info().rss / (1024 ** 2)  
+        peak_memory = process.memory_info().vms / (1024 ** 2)  
 
         end_time = time.time()
 

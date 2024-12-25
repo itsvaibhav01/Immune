@@ -15,7 +15,7 @@ model:
   # generation configs
   prompt: ""
 
-  llama_model: "/Users/singh/Desktop/Notebooks/vision_attack/vicuna-7b"
+  llama_model: "/Path/to/vicuna-7b"
 
 preprocess:
     vis_processor:

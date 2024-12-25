@@ -54,7 +54,7 @@ def read_jailbreak_file(csv_file):
         df = pd.DataFrame(lines).T
 
     for idx, row in df.iterrows():
-        dataset.append({'jailbreak_query': row['question'], 'redteam_query':row['question']})
+        dataset.append({'jailbreak_query': row['jailbreak_query'], 'redteam_query':row['redteam_query']})
     return dataset, df
 
 
@@ -62,25 +62,12 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Demo")
     parser.add_argument("--cfg-path", default="eval_configs/minigpt4_eval.yaml", help="path to configuration file.")
     parser.add_argument("--gpu-id", type=int, default=0, help="specify the gpu to load the model.")
-
-    parser.add_argument("--mode", type=str, default='VisualChatBot',
-                        choices=[ "TextOnly", "VisualChatBot" ],
-                        help="Inference Mode: TextOnly: Text model only (Vicuna) \n VisualChatBot: Vision model + Text model (MiniGPT4) ")
-
-
-    parser.add_argument("--image_file", type=str, default='./adversarial_images/clean.jpeg',
-                        help="Image file")
-    parser.add_argument("--output_file", type=str, default='./result_minigpt4-llama2-clean-gen-tq.jsonl',
-                        help="Output file.")
-    
+    parser.add_argument("--image_file", type=str, help="Image file")
+    parser.add_argument("--output_file", type=str, default='./result_minigpt4-vicuna7b.jsonl', help="Output file.")
     parser.add_argument("--generator", type=str, default="enhanced", help="select generator either the `original` one or our `enhanced` one.")
-
     parser.add_argument("--input_csv", type=str, help="path of cvs file for processing inputs")
-
-    parser.add_argument("--input_jsonl", type=str, default="harmful_corpus/test_prompts.jsonl", help="path of jsonl file for processing inputs")
-
+    parser.add_argument("--input_jsonl", type=str, help="path of jsonl file for processing inputs")
     parser.add_argument("--max_new_token", type=int, default=64, help="max tokens to generate in output")
-
     parser.add_argument(
         "--options",
         nargs="+",
@@ -139,27 +126,17 @@ else:
 ##  TODO: expose interface.
 if args.input_csv != None:
     input_csv_pth = Path(args.input_csv).resolve()
-    datasets, df = read_jailbreak_file(args.input_csv)
+    datasets, df = read_jailbreak_file(input_csv_pth)
 
 else :
     datasets = rtp_read(args.input_jsonl)
 
-if args.mode == "TextOnly":
-    ## vicuna official system message.
-    prefix = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. "
-    prefix += "###Human:%s ###Assistant:"
-    img_prompt = []
 
-elif args.mode == "VisualChatBot":
-    prefix = prompt_wrapper.minigpt4_chatbot_prompt
-    img = Image.open(args.image_file).convert('RGB')
-    img_prompt = [vis_processor(img).unsqueeze(0).to(model.device)]
-
+prefix = prompt_wrapper.minigpt4_chatbot_prompt    
 text_prompt = prefix % ('Please extend the following sentence: %s')
 logging.info(f"Instructions: {text_prompt}")
 
-
-prompt = prompt_wrapper.Prompt(model=model, img_prompts=[img_prompt], device=device)
+prompt = prompt_wrapper.Prompt(model=model, device=device)
 
 # Setup stats logging
 stats_saved_pth = f'./{Path(args.output_file).parent}/elapsed'
@@ -171,9 +148,8 @@ with torch.no_grad():
     for i, user_message_obj in enumerate(datasets):
         user_message = user_message_obj['jailbreak_query']
         if args.input_csv != None:
-            # get image embeddings 
-            prefix = prompt_wrapper.minigpt4_chatbot_prompt
-            img = Image.open(f"{input_csv_pth.parent}/images/{df.iloc[i].image_path}").convert('RGB')
+            # get image embeddings from the image path
+            img = Image.open(f"{input_csv_pth.parent}/{df.iloc[i].image_path}").convert('RGB')
             img_prompt = [vis_processor(img).unsqueeze(0).to(model.device)]
             prompt = prompt_wrapper.Prompt(model=model, img_prompts=[img_prompt], device=device)
 
@@ -193,17 +169,17 @@ with torch.no_grad():
         time_decorator.save_execution_stats(f"{stats_saved_pth}/{Path(args.output_file).name}")
 
 
-with open(args.output_file, 'w') as f:
-    f.write(json.dumps({
-        "args": vars(args)
-    }))
-    f.write("\n")
-
-    for li in out:
-        f.write(json.dumps(li))
-        f.write("\n")
-
 if args.input_csv != None:
     df['response'] = [li['continuation'] for li in out]
     output_path = Path(args.output_file).resolve()
-    df.to_json(f"{output_path.parent}/{output_path.stem}-gen-{args.generator}.jsonl")
+    df.to_json(f"{output_path}")
+else:
+    with open(args.output_file, 'w') as f:
+        f.write(json.dumps({
+            "args": vars(args)
+        }))
+        f.write("\n")
+
+        for li in out:
+            f.write(json.dumps(li))
+            f.write("\n")

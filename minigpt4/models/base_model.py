@@ -175,11 +175,11 @@ class BaseModel(nn.Module):
         llama_tokenizer.pad_token = "$$"
 
         if low_resource:
-            print('>>>>> base_model.py:L182 load_in_8bit=False for mac switch to use 8 bits')
+            print('>>>>> base_model.py:L182: For mac users please toggle load_in_8bit=False as Mac does not support 8-bit quantization')
             llama_model = LlamaForCausalLM.from_pretrained(
                 llama_model_path,
                 torch_dtype=torch.float16,
-                load_in_8bit=False,
+                load_in_8bit=True,
                 device_map=None
             )
         else:

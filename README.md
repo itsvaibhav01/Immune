@@ -1,5 +1,12 @@
 
-# [CVPR 2025] IMMUNE <img src="./static/images/favicon.svg" alt="Favicon" style="width: 1em; height: 1em; vertical-align: middle;">:  Improving Safety Against Jailbreaks in Multi-modal LLMs via Inference-Time Alignment
+# IMMUNE <img src="./static/images/favicon.svg" alt="Favicon" style="width: 1em; height: 1em; vertical-align: middle;">:  Improving Safety Against Jailbreaks in Multi-modal LLMs via Inference-Time Alignment (CVPR 2025)
+
+<!-- arXiv Badge -->
+[![arXiv](https://img.shields.io/badge/arXiv-2411.18688-B31B1B.svg)](https://arxiv.org/abs/2411.18688) <!-- Project page --> [![Project Page](https://img.shields.io/badge/Project-Page-green.svg)](https://itsvaibhav01.github.io/immune-web/) <!-- GitHub Stars Badge (replace YourUser and YourRepo) --> 
+[![GitHub Stars](https://img.shields.io/github/stars/itsvaibhav01/Immune.svg?style=social)](https://github.com/itsvaibhav01/Immune/stargazers)
+
+
+<h3>⭐ Selected for CVPR 2025</h3>
 
 
 Immune, a novel inference-time defense framework, enhances the safety of Multimodal Large Language Models (MLLMs) against jailbreak attacks. By leveraging a safe reward model during decoding, Immune effectively rejects harmful queries while preserving the model’s original utility and performance.

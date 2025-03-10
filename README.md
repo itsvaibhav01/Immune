@@ -1,4 +1,5 @@
-# IMMUNE <img src="./static/images/favicon.svg" alt="Favicon" style="width: 1em; height: 1em; vertical-align: middle;">:  Improving Safety Against Jailbreaks in Multi-modal LLMs via Inference-Time Alignment
+
+# [CVPR 2025] IMMUNE <img src="./static/images/favicon.svg" alt="Favicon" style="width: 1em; height: 1em; vertical-align: middle;">:  Improving Safety Against Jailbreaks in Multi-modal LLMs via Inference-Time Alignment
 
 
 Immune, a novel inference-time defense framework, enhances the safety of Multimodal Large Language Models (MLLMs) against jailbreak attacks. By leveraging a safe reward model during decoding, Immune effectively rejects harmful queries while preserving the model’s original utility and performance.

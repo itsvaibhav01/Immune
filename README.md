@@ -121,6 +121,15 @@ The image below demonstrates how Immune outperforms other defense strategies in 
 ![teaser 2](./static/images/teaser2.jpg)
 ![teaser 3](./static/images/teaser3.jpg)
 
+## For bibtex citation
 
+```
+@article{ghosal2024immune,
+  title={Immune: Improving Safety Against Jailbreaks in Multi-modal LLMs via Inference-Time Alignment},
+  author={Ghosal, Soumya Suvra and Chakraborty, Souradip and Singh, Vaibhav and Guan, Tianrui and Wang, Mengdi and and Velasquez, Alvaro and Beirami, Ahmad and Huang, Furong and Manocha, Dinesh and Bedi, Amrit Singh},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year={2025}
+}
+```
 
 

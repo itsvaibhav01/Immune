@@ -6,7 +6,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/itsvaibhav01/Immune.svg?style=social)](https://github.com/itsvaibhav01/Immune/stargazers)
 
 
-<h3>⭐ Selected for CVPR 2025</h3>
+<h3>⭐ Accepted for CVPR 2025</h3>
 
 
 Immune, a novel inference-time defense framework, enhances the safety of Multimodal Large Language Models (MLLMs) against jailbreak attacks. By leveraging a safe reward model during decoding, Immune effectively rejects harmful queries while preserving the model’s original utility and performance.
